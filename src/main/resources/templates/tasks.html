@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- START: Head-->
+<head>
+    <meta charset="UTF-8">
+    <title>Task Management</title>
+    <link rel="shortcut icon" href="/images/favicon.ico"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <th:block th:insert="fragments/fragment::headerImport"></th:block>
+</head>
+<!-- END Head-->
+
+<!-- START: Body-->
+<body id="main-container" class="default">
+
+<!-- START: Pre Loader-->
+<div class="se-pre-con">
+    <div class="loader"></div>
+</div>
+<!-- END: Pre Loader-->
+
+<th:block th:insert="fragments/fragment::header"></th:block>
+
+<th:block th:insert="fragments/fragment::sidebar"></th:block>
+
+<!-- START: Main Content-->
+<main>
+    <div class="container-fluid site-width">
+        <!-- START: Breadcrumbs-->
+        <div class="row">
+            <div class="col-12  align-self-center">
+                <div class="sub-header mt-3 py-3 align-self-center d-sm-flex w-100 rounded">
+                    <div class="w-sm-100 mr-auto"><h4 class="mb-0">Task Management</h4>
+                        <p>Welcome to Task Management</p></div>
+
+                    <ol class="breadcrumb bg-transparent align-self-center m-0 p-0">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- END: Breadcrumbs-->
+
+        <div class="row card col-12">
+            <table class="table">
+                <tr>
+                    <th>id</th>
+                    <th>title</th>
+                    <th>description</th>
+                    <th>deadline</th>
+                    <th>status</th>
+                    <th>user</th>
+                </tr>
+                <tr th:each="task: ${tasks.content}">
+                    <td th:text="${task.id}"></td>
+                    <td th:text="${task.title}"></td>
+                    <td>
+                    <div th:utext="${task.description}"></div>
+                    </td>
+                    <td th:text="${task.getDeadline}"></td>
+                    <td th:text="${task.status}"></td>
+                    <td>
+                        <form action="/tasks/changeUser" method="post">
+                            <input type="hidden" value="taskId" th:value="${task.id}">
+                            <select name="userId">
+                                <option value="0">unassigned</option>
+                                <option th:selected="${task.user eq user}" th:each="user:${users}" th:value="${user.id}"
+                                        th:text="${user.name+' '+user.surname}">
+                                </option>
+                            </select>
+                            <input id="changeUserBtn" type="submit" value="change">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+            <div th:if="${tasks.totalPages > 0}" class="pagination"
+                 th:each="pageNumber : ${pageNumbers}">
+                <a th:href="@{/tasks(size=${tasks.size}, page=${pageNumber})}"
+                   th:text="${pageNumber}"
+                   th:class="${pageNumber==tasks.number + 1} ? active"></a>
+            </div>
+        </div>
+    </div>
+
+</main>
+<!-- END: Content-->
+
+
+<th:block th:insert="fragments/fragment::footer"></th:block>
+
+<!-- START: Back to top-->
+<a href="#" class="scrollup text-center">
+    <i class="icon-arrow-up"></i>
+</a>
+<!-- END: Back to top-->
+
+<th:block th:insert="fragments/fragment::footerImport"></th:block>
+
+</body>
+<!-- END: Body-->
+</html>

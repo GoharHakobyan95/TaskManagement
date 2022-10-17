@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- START: Head-->
+<head>
+    <meta charset="UTF-8">
+    <title>Task Management</title>
+    <link rel="shortcut icon" href="/images/favicon.ico"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <th:block th:insert="fragments/fragment::headerImport"></th:block>
+</head>
+<!-- END Head-->
+
+<!-- START: Body-->
+<body id="main-container" class="default">
+
+<!-- START: Pre Loader-->
+<div class="se-pre-con">
+    <div class="loader"></div>
+</div>
+<!-- END: Pre Loader-->
+
+<th:block th:insert="fragments/fragment::header"></th:block>
+
+<th:block th:insert="fragments/fragment::sidebar"></th:block>
+
+<!-- START: Main Menu-->
+<div class="sidebar">
+    <div class="site-width">
+        <!-- START: Menu-->
+        <ul id="side-menu" class="sidebar-menu">
+            <li class="dropdown "><a href="/#"><i class="icon-home mr-1"></i> TASKS </a>
+                <ul>
+                    <li class=""><a href="/tasks"><i class="icon-rocket"></i> Show All Tasks </a></li>
+                    <li><a href="/tasks/add"><i class="icon-layers"></i> Add new task</a></li>
+
+                </ul>
+            </li>
+
+            <li class="dropdown"><a href="/#"><i class="icon-home mr-1"></i> USERS </a>
+                <ul>
+                    <li><a href="/users"><i class="icon-grid"></i> Show All Users</a></li>
+                    <li><a href="/users/add"><i class="icon-layers"></i> Add new User</a></li>
+
+                </ul>
+            </li>
+
+        </ul>
+        <!-- END: Menu-->
+        <ol class="breadcrumb bg-transparent align-self-center m-0 p-0 ml-auto">
+            <li class="breadcrumb-item"><a href="#">Application</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+    </div>
+</div>
+<!-- END: Main Menu-->
+
+<!-- START: Main Content-->
+<main>
+    <div class="container-fluid site-width">
+        <!-- START: Breadcrumbs-->
+        <div class="row">
+            <div class="col-12  align-self-center">
+                <div class="sub-header mt-3 py-3 align-self-center d-sm-flex w-100 rounded">
+                    <div class="w-sm-100 mr-auto"><h4 class="mb-0">Task Management</h4>
+                        <p>Welcome to Task Management</p></div>
+
+                    <ol class="breadcrumb bg-transparent align-self-center m-0 p-0">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- END: Breadcrumbs-->
+        <!-- START: Card Data-->
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Add new User</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <form action="/users/add" method="post" enctype="multipart/form-data">
+                                    <div class="form-group row">
+                                        <label for="name" class="col-sm-2 col-form-label">Name</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="name" class="form-control" id="name"
+                                                   placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="surname" class="col-sm-2 col-form-label">Surname</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="surname" class="form-control" id="surname"
+                                                   placeholder="Surname">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" name="email" class="form-control" id="email"
+                                                   placeholder="Email">
+                                            <span style="collapse: red" th:if="${errorMessage != null}"
+                                                  th:text="${errorMessage}">  </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="password" class="col-sm-2 col-form-label">Password</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" name="password" class="form-control" id="password"
+                                                   placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="role" class="col-sm-2 col-form-label"></label>
+                                        <div class="col-sm-10" id="role">
+                                            <select class="custom-select" name="role">
+                                                <option value="MANAGER">MANAGER</option>
+                                                <option value="USER">USER</option>
+                                            </select>
+                                            <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="userImage" class="col-sm-2 col-form-label">Image</label>
+                                        <input type="file" name="userImage" id="userImage" accept="image/*">
+                                        <span style="collapse: red" th:if="${errorMessage != null}"
+                                              th:text="${errorMessage}">  </span>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-10">
+                                            <button type="submit" class="btn btn-primary">Sign in</button>
+                                            <button type="reset" class="btn btn-outline-warning">Reset</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Card DATA-->
+
+    </div>
+</main>
+<!-- END: Content-->
+
+
+<th:block th:insert="fragments/fragment::footer"></th:block>
+
+
+<!-- START: Back to top-->
+<a href="#" class="scrollup text-center">
+    <i class="icon-arrow-up"></i>
+</a>
+<!-- END: Back to top-->
+
+
+<!-- START: Template JS-->
+<script src="/vendors/jquery/jquery-3.3.1.min.js"></script>
+<script src="/vendors/jquery-ui/jquery-ui.min.js"></script>
+<script src="/vendors/moment/moment.js"></script>
+<script src="/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendors/slimscroll/jquery.slimscroll.min.js"></script>
+<!-- END: Template JS-->
+
+<!-- START: APP JS-->
+<script src="/js/app.js"></script>
+<!-- END: APP JS-->
+
+<th:block th:insert="fragments/fragment::footerImport"></th:block>
+</body>
+<!-- END: Body-->
+</html>
